@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class miceController : MonoBehaviour
 {
+    [SerializeField] private Transform verticalBound;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float checkRadius = 0.2f;
     [SerializeField] public float speed = 5f;
     [SerializeField] public float jumpHeight = 5f;
     bool facingRight = true;
     bool isGrounded = true;
     float horizontalMove = 0f;
 
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
 
     void Start()
     {
@@ -20,13 +24,44 @@ public class miceController : MonoBehaviour
     void Update()
     {
         //MOVE
-        horizontalMove = Input.GetAxisRaw("Horizontal1") * speed * Time.deltaTime;
-        
+        horizontalMove = Input.GetAxisRaw("Horizontal2");
+        rb.velocity = new Vector2(horizontalMove * speed, rb.velocity.y);
+
+        //LOOK DIRECTION
+        FlipSprite();
+
         //JUMP
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            Debug.Log("jump!");
+            rb.velocity = new Vector2 (rb.velocity.x, jumpHeight);
         }
 
+        //VerticalDeath
+        checkVert();
+    }
+
+    private bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
+    }
+
+    private void FlipSprite()
+    {
+        if (facingRight && horizontalMove < 0f || !facingRight && horizontalMove > 0f)
+        {
+            facingRight = !facingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
+    }
+
+    private void checkVert()
+    {
+        if (transform.position.y < verticalBound.position.y)
+        {
+            Debug.Log("Fell in the void");
+            //TODO: end game, freeze time, call game over screen, destroy game object
+        }
     }
 }

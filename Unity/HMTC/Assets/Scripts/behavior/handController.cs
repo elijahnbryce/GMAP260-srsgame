@@ -5,11 +5,11 @@ using UnityEngine;
 public class handController : MonoBehaviour
 {
     [SerializeField] public float speed = 5f;
-    [SerializeField] public float jumpHeight = 5f;
-    bool facingRight = true;
-    float horizontalMove = 0f;
+    private float horizontalMove = 0f;
+    private float verticalMove = 0f;
 
     Rigidbody2D rb;
+    Vector3 grabOffset;
 
     void Start()
     {
@@ -19,14 +19,29 @@ public class handController : MonoBehaviour
     void Update()
     {
         //MOVE
-        horizontalMove = Input.GetAxisRaw("Horizontal2") * speed * Time.deltaTime;
+        horizontalMove = Input.GetAxisRaw("Horizontal1") * speed;
+        verticalMove = Input.GetAxisRaw("Vertical1") * speed;
+        rb.velocity = new Vector2(horizontalMove, verticalMove);
 
+    }
+
+    void OnTriggerStay(Collider collider)
+    {
+        //if (tag == 'Interactable') then Interact(collider);
         //INTERACT (GRAB)
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Trying to interact!");
             //TODO only trigger while in radius
-                //collider trigger 
+            //collider trigger 
+            Pickup(collider);
         }
     }
-}
+
+    private void Pickup(Collider collider)
+    {
+        GameObject target = collider.gameObject;
+        grabOffset = target.transform.position - transform.position;
+        target.transform.position = transform.position + grabOffset;
+    }
+} 
