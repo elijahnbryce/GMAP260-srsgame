@@ -5,6 +5,8 @@ using UnityEngine;
 public class obstacleBehavior : MonoBehaviour
 {
     Vector3 grabOffset;
+    bool isHeld = false;
+    [SerializeField] GameObject theHand;
 
     // Start is called before the first frame update
     void Start()
@@ -15,26 +17,39 @@ public class obstacleBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    void OnTriggerStay(Collider collider)
-    {
-        //if (tag == 'Interactable') then Interact(collider);
-        //INTERACT (GRAB)
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (isHeld)
         {
-            Debug.Log("Trying to interact!");
-            //TODO only trigger while in radius
-            //collider trigger 
-            thisBehavior(collider);
+            grabOffset = theHand.transform.position - transform.position;
+            transform.position = theHand.transform.position - grabOffset;
         }
     }
 
-    private void thisBehavior(Collider collider)
+    void OnTriggerStay2D(Collider2D collider)
+    {
+        //if (tag == 'Interactable') then Interact(collider);
+        //INTERACT (GRAB)
+        Debug.Log("Something is in Obstacle Collider");
+        if (Input.GetKey(KeyCode.Space))
+        {
+            Debug.Log("Something is trying to interact!");
+            if (isHeld)
+            {
+                isHeld = false;
+            }
+            else
+            {
+                isHeld = true;
+            }
+            //TODO only trigger while in radius
+            //collider trigger 
+            //thisBehavior(collider);
+        }
+    }
+
+    private void thisBehavior(Collider2D collider)
     {
         GameObject target = collider.gameObject;
-        grabOffset = transform.position - target.transform.position;
-        transform.position = target.transform.position + grabOffset;
+        grabOffset = target.transform.position - transform.position;
+        transform.position = target.transform.position - grabOffset;
     }
 }

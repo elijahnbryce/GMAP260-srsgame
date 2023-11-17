@@ -48,11 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb57d769d03b0ef44990b16100001564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  verticalBound: {fileID: 0}
+  verticalBound: {fileID: 418675112672039222, guid: 6abd59f5147c79446b9f2b73baa794d5, type: 3}
   groundCheck: {fileID: 7711977884825495042}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   checkRadius: 0.2
   speed: 5
   jumpHeight: 5

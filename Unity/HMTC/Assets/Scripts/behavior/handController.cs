@@ -25,7 +25,7 @@ public class handController : MonoBehaviour
 
     }
 
-    void OnTriggerStay(Collider collider)
+    void OnTriggerStay2D(Collider2D collider)
     {
         //if (tag == 'Interactable') then Interact(collider);
         //INTERACT (GRAB)
@@ -38,10 +38,10 @@ public class handController : MonoBehaviour
         }
     }
 
-    private void Pickup(Collider collider)
+    private void Pickup(Collider2D collider)
     {
         GameObject target = collider.gameObject;
-        grabOffset = target.transform.position - transform.position;
-        target.transform.position = transform.position + grabOffset;
+        grabOffset = transform.position - target.transform.position;
+        target.transform.position = transform.position - grabOffset;
     }
 } 
