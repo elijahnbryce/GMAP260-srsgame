@@ -8,43 +8,34 @@ public class obstacleBehavior : MonoBehaviour
     bool isHeld = false;
     [SerializeField] GameObject theHand;
     [SerializeField] Transform testPos;
+    public handController handControl;
+    [SerializeField] private int handLayer;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        handControl = theHand.GetComponent<handController>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        /*if (isHeld)
-        {
-            grabOffset = theHand.transform.position - transform.position;
-            transform.position = theHand.transform.position - grabOffset;
-        }*/
+
     }
 
-    void OnTriggerStay2D(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        //if (tag == 'Interactable') then Interact(collider);
-        //INTERACT (GRAB)
         Debug.Log("Something is in Obstacle Collider");
-        if (Input.GetKey(KeyCode.Space))
+        if (collider.gameObject.layer == handLayer)
         {
-            Debug.Log("Something is trying to interact!");
-            if (isHeld)
-            {
-                isHeld = false;
-            }
-            else
-            {
-                isHeld = true;
-            }
-            //TODO only trigger while in radius
-            //collider trigger 
-            //thisBehavior(collider);
-            //transform.position = theHand.transform.position;
+            handControl.inGrabRange = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collider)
+    {
+        Debug.Log("Something is in Obstacle Collider");
+        if (collider.gameObject.layer == handLayer)
+        {
+            handControl.inGrabRange = false;
         }
     }
 

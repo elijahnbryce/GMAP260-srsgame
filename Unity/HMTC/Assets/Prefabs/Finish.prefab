@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -6868458782359539722}
   m_Layer: 0
   m_Name: Finish
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,6 +91,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2b4cddb6657934299b0ccce03c0069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endCanvas: {fileID: 0}
+  mouseMove: {fileID: 0}
+  handMove: {fileID: 0}
 --- !u!1 &3697601255312594766
 GameObject:
   m_ObjectHideFlags: 0

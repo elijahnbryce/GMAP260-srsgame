@@ -17,9 +17,13 @@ public class miceController : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    public Animator anim;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = this.GetComponent<Animator>();
+        //anim.SetTrigger("Idle");
     }
 
     void Update()
@@ -39,6 +43,14 @@ public class miceController : MonoBehaviour
         horizontalMove = Input.GetAxisRaw("Horizontal2");
         rb.velocity = new Vector2(horizontalMove * speed, rb.velocity.y);
 
+        if (horizontalMove != 0)
+        {
+            //anim.SetTrigger("Moving");
+        }
+        else
+        {
+            //anim.SetTrigger("Idle");
+        }
         //LOOK DIRECTION
         FlipSprite();
 
@@ -46,6 +58,7 @@ public class miceController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
+            //anim.SetTrigger("Jumping");
         }
     }
 
