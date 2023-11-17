@@ -7,9 +7,14 @@ public class handController : MonoBehaviour
     [SerializeField] public float speed = 5f;
     private float horizontalMove = 0f;
     private float verticalMove = 0f;
+    public bool canMove = true;
 
     Rigidbody2D rb;
     Vector3 grabOffset;
+
+    [SerializeField] private Transform grabPoint;
+    private GameObject grabbedObject;
+    private int targetLayer;
 
     void Start()
     {
@@ -18,11 +23,18 @@ public class handController : MonoBehaviour
 
     void Update()
     {
+        if (canMove)
+        {
+            MoveCheck();
+        }
+    }
+
+    private void MoveCheck()
+    {
         //MOVE
         horizontalMove = Input.GetAxisRaw("Horizontal1") * speed;
         verticalMove = Input.GetAxisRaw("Vertical1") * speed;
         rb.velocity = new Vector2(horizontalMove, verticalMove);
-
     }
 
     void OnTriggerStay2D(Collider2D collider)

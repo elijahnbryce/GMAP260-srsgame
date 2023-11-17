@@ -11,7 +11,8 @@ public class miceController : MonoBehaviour
     [SerializeField] public float speed = 5f;
     [SerializeField] public float jumpHeight = 5f;
     bool facingRight = true;
-    bool isGrounded = true;
+    public bool canMove = true;
+    //bool isGrounded = true;
     float horizontalMove = 0f;
 
     private Rigidbody2D rb;
@@ -23,6 +24,17 @@ public class miceController : MonoBehaviour
 
     void Update()
     {
+        if (canMove)
+        {
+            MoveCheck();
+        }
+
+        //VerticalDeath
+        checkVert();
+    }
+
+    private void MoveCheck()
+    {
         //MOVE
         horizontalMove = Input.GetAxisRaw("Horizontal2");
         rb.velocity = new Vector2(horizontalMove * speed, rb.velocity.y);
@@ -31,13 +43,10 @@ public class miceController : MonoBehaviour
         FlipSprite();
 
         //JUMP
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && IsGrounded())
         {
-            rb.velocity = new Vector2 (rb.velocity.x, jumpHeight);
+            rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
         }
-
-        //VerticalDeath
-        checkVert();
     }
 
     private bool IsGrounded()

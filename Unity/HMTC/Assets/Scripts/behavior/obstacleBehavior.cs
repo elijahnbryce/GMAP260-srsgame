@@ -7,6 +7,7 @@ public class obstacleBehavior : MonoBehaviour
     Vector3 grabOffset;
     bool isHeld = false;
     [SerializeField] GameObject theHand;
+    [SerializeField] Transform testPos;
 
     // Start is called before the first frame update
     void Start()
@@ -17,11 +18,11 @@ public class obstacleBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isHeld)
+        /*if (isHeld)
         {
             grabOffset = theHand.transform.position - transform.position;
             transform.position = theHand.transform.position - grabOffset;
-        }
+        }*/
     }
 
     void OnTriggerStay2D(Collider2D collider)
@@ -43,6 +44,7 @@ public class obstacleBehavior : MonoBehaviour
             //TODO only trigger while in radius
             //collider trigger 
             //thisBehavior(collider);
+            //transform.position = theHand.transform.position;
         }
     }
 

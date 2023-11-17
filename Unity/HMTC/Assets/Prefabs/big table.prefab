@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 437592077535756972}
   - component: {fileID: 4957492010151700771}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platform_Wood_Wide (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3074620971841056033}
   - component: {fileID: 4744716722811608666}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: big table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,7 +173,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3901086046164219591}
   - component: {fileID: 8390232755426577219}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platform_Wood_Wide
   m_TagString: Untagged
   m_Icon: {fileID: 0}

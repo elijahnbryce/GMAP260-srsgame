@@ -212,3 +212,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theHand: {fileID: 3683334075738529266, guid: 4db10337f32926b4db305d0c8e9e997f, type: 3}
+  testPos: {fileID: 0}
