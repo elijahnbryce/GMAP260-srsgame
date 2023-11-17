@@ -34,7 +34,7 @@ public class handController : MonoBehaviour
             Debug.Log("Trying to interact!");
             //TODO only trigger while in radius
             //collider trigger 
-            Pickup(collider);
+            //Pickup(collider);
         }
     }
 
