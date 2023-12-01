@@ -83,6 +83,7 @@ public class miceController : MonoBehaviour
         if (transform.position.y < verticalBound.position.y)
         {
             Debug.Log("Fell in the void");
+            Time.timeScale = 0;
             //TODO: end game, freeze time, call game over screen, destroy game object
         }
     }

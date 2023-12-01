@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7126911836929518577}
   - component: {fileID: 4534371319641601720}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,8 @@ GameObject:
   - component: {fileID: 762186919364154113}
   - component: {fileID: 294486402332366597}
   - component: {fileID: 6899276306469187856}
-  m_Layer: 0
+  - component: {fileID: 4346618677381421769}
+  m_Layer: 8
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,8 +114,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.24, y: 0.24, z: 0.24}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7126911836929518577}
   m_Father: {fileID: 0}
@@ -197,7 +198,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.81, y: -0.69}
-  m_Size: {x: 4, y: 4}
+  m_Size: {x: 6, y: 6}
   m_Direction: 1
 --- !u!114 &6899276306469187856
 MonoBehaviour:
@@ -213,3 +214,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   theHand: {fileID: 3683334075738529266, guid: 4db10337f32926b4db305d0c8e9e997f, type: 3}
   testPos: {fileID: 0}
+  handControl: {fileID: 0}
+  handLayer: 0
+--- !u!50 &4346618677381421769
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4747172287570399387}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

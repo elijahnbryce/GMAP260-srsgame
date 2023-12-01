@@ -51,14 +51,14 @@ public class handController : MonoBehaviour
             {
                 Debug.Log("the hand is picking it up");
                 grabbedObject = collision.gameObject;
-                //grabbedObject.GetComponent<Rigidbody2D>().isKinematic = true;
+                grabbedObject.GetComponent<Rigidbody2D>().isKinematic = true;
                 grabbedObject.transform.position = grabPoint.position;
                 grabbedObject.transform.SetParent(transform);
             }
-            else if (Input.GetKeyDown(KeyCode.Space) && grabbedObject != null)
+            if (Input.GetKeyUp(KeyCode.Space) && grabbedObject != null)
             {
                 Debug.Log("the hand has released its claim");
-                //grabbedObject.GetComponent<Rigidbody2D>().isKinematic = true;
+                grabbedObject.GetComponent<Rigidbody2D>().isKinematic = false;
                 grabbedObject.transform.SetParent(null);
                 grabbedObject = null;
             }
