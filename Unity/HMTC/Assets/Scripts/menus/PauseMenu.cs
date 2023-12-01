@@ -42,6 +42,14 @@ public class PauseMenu : MonoBehaviour
         
     }
 
+    public void Retry()
+    {
+        Scene current = SceneManager.GetActiveScene();
+        livesSystem.life = 3;
+        SceneManager.LoadScene(current.name);
+    }
+
+
     public void QuitGame()
     {
         SceneManager.LoadScene(0);

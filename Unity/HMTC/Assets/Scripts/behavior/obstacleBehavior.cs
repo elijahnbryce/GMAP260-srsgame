@@ -8,6 +8,7 @@ public class obstacleBehavior : MonoBehaviour
     //bool isHeld = false;
     //[SerializeField] GameObject theHand;
     //[SerializeField] Transform testPos;
+    public Vector3 spawnPoint;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckRadius = 0.2f;
@@ -17,14 +18,16 @@ public class obstacleBehavior : MonoBehaviour
     public bool isAwake;
     private bool wasStatic;
     public bool doesNotFall;
+    public bool superStatic;
 
     void Start()
     {
         //handControl = theHand.GetComponent<handController>();
+
         rb = GetComponent<Rigidbody2D>();
         isAwake = true;
         wasStatic = (rb.bodyType == RigidbodyType2D.Static);
-
+        spawnPoint = rb.transform.position;
     }
 
     void Update()

@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 4453100831241925460}
   m_Layer: 0
   m_Name: handPlayer
-  m_TagString: GameController
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -166,7 +166,7 @@ MonoBehaviour:
   speed: 5
   canMove: 1
   grabPoint: {fileID: 515927127220464875}
-  inGrabRange: 0
+  obby: {fileID: 0}
   anim: {fileID: 0}
 --- !u!50 &7783776754456173663
 Rigidbody2D:

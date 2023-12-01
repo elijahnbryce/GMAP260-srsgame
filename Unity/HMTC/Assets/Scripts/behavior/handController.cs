@@ -38,7 +38,7 @@ public class handController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (inGrabRange && (tempCollision != null))
+        if (inGrabRange && (tempCollision != null) && (obby.superStatic == false))
         {
             PickupFixed(tempCollision);
         }
