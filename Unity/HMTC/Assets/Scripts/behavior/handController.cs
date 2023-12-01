@@ -8,15 +8,17 @@ public class handController : MonoBehaviour
     private float horizontalMove = 0f;
     private float verticalMove = 0f;
     public bool canMove = true;
+    private bool inGrabRange = false;
 
     Rigidbody2D rb;
     Vector3 grabOffset;
 
     [SerializeField] private Transform grabPoint;
-    //private Vector3 lastPos;
     private GameObject grabbedObject;
+    private Collider2D tempCollision;
     private int targetLayer;
 
+    public obstacleBehavior obby;
     public Animator anim;
     void Start()
     {
@@ -34,29 +36,32 @@ public class handController : MonoBehaviour
         }        
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void FixedUpdate()
+    {
+        if (inGrabRange && (tempCollision != null))
+        {
+            PickupFixed(tempCollision);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("the hand collided with something");
-        if(collision.gameObject.layer == targetLayer)
+        if (collision.gameObject.layer == targetLayer)
         {
-            Debug.Log("it was an obstacle");
-            if (Input.GetKey(KeyCode.Space) && grabbedObject == null)
-            {
-                Debug.Log("the hand is picking it up");
-                grabbedObject = collision.gameObject;
-                //lastPos = grabbedObject.transform.position;
-
-                grabbedObject.GetComponent<Rigidbody2D>().isKinematic = true;
-                grabbedObject.transform.position = grabPoint.position;
-                grabbedObject.transform.SetParent(transform);
-            }
-            else if (/*Input.GetKeyUp(KeyCode.Space) && */grabbedObject != null)
-            {
-                Debug.Log("the hand has released its claim");
-                grabbedObject.GetComponent<Rigidbody2D>().isKinematic = false;
-                grabbedObject.transform.SetParent(null);
-                grabbedObject = null;
-            }
+            inGrabRange = true;
+            tempCollision = collision;
+            obby = collision.gameObject.GetComponent<obstacleBehavior>();
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("stopped colliding");
+        if (collision.gameObject.layer == targetLayer)
+        {
+            inGrabRange = false;
+            tempCollision = null;
+            obby = null;
         }
     }
 
@@ -79,10 +84,26 @@ public class handController : MonoBehaviour
         Debug.Log("the hand let go of it's claim");
         //anim.SetTrigger("Idle");
     }
-    private void Pickup(Collider2D collider)
+    private void PickupFixed(Collider2D collision)
     {
-        GameObject target = collider.gameObject;
-        grabOffset = transform.position - target.transform.position;
-        target.transform.position = transform.position - grabOffset;
+        Debug.Log("it was an obstacle");
+        if (Input.GetKey(KeyCode.Space) && grabbedObject == null)
+        {
+            Debug.Log("the hand is picking it up");
+            grabbedObject = collision.gameObject;
+            obby.isAwake = false;
+            grabbedObject.GetComponent<Rigidbody2D>().isKinematic = true;
+            grabbedObject.transform.position = grabPoint.position;
+            grabbedObject.transform.SetParent(transform);
+        }
+        else if ((Input.GetKey(KeyCode.Space) == false) && grabbedObject != null)
+        {
+            Debug.Log("the hand has released its claim");
+            grabbedObject.GetComponent<Rigidbody2D>().isKinematic = false;
+            grabbedObject.transform.SetParent(null);
+
+            obby.isAwake = true;
+            grabbedObject = null;
+        }
     }
-} 
+}

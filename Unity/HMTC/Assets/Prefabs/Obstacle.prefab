@@ -248,7 +248,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
-  checkRadius: 0.2
+  checkRadius: 0.1
 --- !u!50 &4346618677381421769
 Rigidbody2D:
   serializedVersion: 4

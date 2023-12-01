@@ -12,16 +12,18 @@ public class obstacleBehavior : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float checkRadius = 0.2f;
     private Rigidbody2D rb;
+    public bool isAwake;
 
     void Start()
     {
         //handControl = theHand.GetComponent<handController>();
         rb = GetComponent<Rigidbody2D>();
+        isAwake = true;
     }
 
     void Update()
     {
-        if (IsGrounded())
+        if (IsGrounded() && isAwake)
         {
             rb.transform.position = new Vector3(rb.transform.position.x, rb.transform.position.y + .1f, rb.transform.position.z);
         }
