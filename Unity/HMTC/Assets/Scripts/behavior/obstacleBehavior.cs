@@ -5,44 +5,30 @@ using UnityEngine;
 public class obstacleBehavior : MonoBehaviour
 {
     Vector3 grabOffset;
-    bool isHeld = false;
-    [SerializeField] GameObject theHand;
-    [SerializeField] Transform testPos;
-    public handController handControl;
-    [SerializeField] private int handLayer;
+    //bool isHeld = false;
+    //[SerializeField] GameObject theHand;
+    //[SerializeField] Transform testPos;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float checkRadius = 0.2f;
+    private Rigidbody2D rb;
 
     void Start()
     {
-        handControl = theHand.GetComponent<handController>();
+        //handControl = theHand.GetComponent<handController>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-
-    }
-
-    void OnTriggerEnter2D(Collider2D collider)
-    {
-        Debug.Log("Something is in Obstacle Collider");
-        if (collider.gameObject.layer == handLayer)
+        if (IsGrounded())
         {
-            handControl.inGrabRange = true;
+            rb.transform.position = new Vector3(rb.transform.position.x, rb.transform.position.y + .1f, rb.transform.position.z);
         }
     }
 
-    void OnTriggerExit2D(Collider2D collider)
+    private bool IsGrounded()
     {
-        Debug.Log("Something is in Obstacle Collider");
-        if (collider.gameObject.layer == handLayer)
-        {
-            handControl.inGrabRange = false;
-        }
-    }
-
-    private void thisBehavior(Collider2D collider)
-    {
-        GameObject target = collider.gameObject;
-        grabOffset = target.transform.position - transform.position;
-        transform.position = target.transform.position - grabOffset;
+        return Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
     }
 }

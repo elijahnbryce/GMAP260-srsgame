@@ -13,9 +13,9 @@ public class handController : MonoBehaviour
     Vector3 grabOffset;
 
     [SerializeField] private Transform grabPoint;
+    //private Vector3 lastPos;
     private GameObject grabbedObject;
     private int targetLayer;
-    public bool inGrabRange;
 
     public Animator anim;
     void Start()
@@ -31,14 +31,7 @@ public class handController : MonoBehaviour
         if (canMove)
         {
             MoveCheck();
-        }
-
-        if (inGrabRange)
-        {
-            StartGrab();
-        }
-
-        
+        }        
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -47,15 +40,17 @@ public class handController : MonoBehaviour
         if(collision.gameObject.layer == targetLayer)
         {
             Debug.Log("it was an obstacle");
-            if (Input.GetKeyDown(KeyCode.Space) && grabbedObject == null)
+            if (Input.GetKey(KeyCode.Space) && grabbedObject == null)
             {
                 Debug.Log("the hand is picking it up");
                 grabbedObject = collision.gameObject;
+                //lastPos = grabbedObject.transform.position;
+
                 grabbedObject.GetComponent<Rigidbody2D>().isKinematic = true;
                 grabbedObject.transform.position = grabPoint.position;
                 grabbedObject.transform.SetParent(transform);
             }
-            if (Input.GetKeyUp(KeyCode.Space) && grabbedObject != null)
+            else if (/*Input.GetKeyUp(KeyCode.Space) && */grabbedObject != null)
             {
                 Debug.Log("the hand has released its claim");
                 grabbedObject.GetComponent<Rigidbody2D>().isKinematic = false;
