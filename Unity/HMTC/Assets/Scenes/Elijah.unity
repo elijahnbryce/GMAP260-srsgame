@@ -665,6 +665,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4346618677381421769, guid: 1cea35ab34702494792d1988f90700ae, type: 3}
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4747172287570399387, guid: 1cea35ab34702494792d1988f90700ae, type: 3}
       propertyPath: m_Name
       value: Obstacle
@@ -1505,6 +1509,18 @@ PrefabInstance:
     - target: {fileID: 6338274094796401454, guid: a6a6235f866d24741a01617a657867bc, type: 3}
       propertyPath: m_SortingOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011736886951507354, guid: a6a6235f866d24741a01617a657867bc, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: b97a3764f897aef4994474ae7a260ca7, type: 2}
+    - target: {fileID: 7011736886951507354, guid: a6a6235f866d24741a01617a657867bc, type: 3}
+      propertyPath: m_LinearDrag
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7011736886951507354, guid: a6a6235f866d24741a01617a657867bc, type: 3}
+      propertyPath: m_GravityScale
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 9058282203395705483, guid: a6a6235f866d24741a01617a657867bc, type: 3}
       propertyPath: m_LocalScale.x
