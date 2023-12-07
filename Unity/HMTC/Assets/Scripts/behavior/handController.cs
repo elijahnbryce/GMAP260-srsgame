@@ -23,8 +23,6 @@ public class handController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = this.GetComponent<Animator>();
-        //anim.SetTrigger("Idle");
         targetLayer = LayerMask.NameToLayer("obstacles");
     }
 
@@ -73,25 +71,17 @@ public class handController : MonoBehaviour
         rb.velocity = new Vector2(horizontalMove, verticalMove);
     }
 
-    private void StartGrab()
-    {
-        Debug.Log("the hand is trying to grab");
-        //anim.SetTrigger("Holding");
-    }
-
-    private void Drop()
-    {
-        Debug.Log("the hand let go of it's claim");
-        //anim.SetTrigger("Idle");
-    }
     private void PickupFixed(Collider2D collision)
     {
         Debug.Log("it was an obstacle");
         if (Input.GetKey(KeyCode.Space) && grabbedObject == null)
         {
             Debug.Log("the hand is picking it up");
+            anim.SetBool("Grabbing", true);
+
             grabbedObject = collision.gameObject;
             obby.isAwake = false;
+
             grabbedObject.GetComponent<Rigidbody2D>().isKinematic = true;
             grabbedObject.transform.position = grabPoint.position;
             grabbedObject.transform.SetParent(transform);
@@ -99,6 +89,8 @@ public class handController : MonoBehaviour
         else if ((Input.GetKey(KeyCode.Space) == false) && grabbedObject != null)
         {
             Debug.Log("the hand has released its claim");
+            anim.SetBool("Grabbing", false);
+
             grabbedObject.GetComponent<Rigidbody2D>().isKinematic = false;
             grabbedObject.transform.SetParent(null);
 

@@ -79,7 +79,10 @@ public class deadZoneBehavior : MonoBehaviour
 
         if (collider.gameObject.layer == 8)
         {
-            tempTarrg.transform.position = tempTarrg.GetComponent<obstacleBehavior>().spawnPoint;
+            if (collider.gameObject.GetComponent<obstacleBehavior>().CheckOnGround() == false)
+            {
+                tempTarrg.transform.position = tempTarrg.GetComponent<obstacleBehavior>().spawnPoint;
+            }
         }
 
     }

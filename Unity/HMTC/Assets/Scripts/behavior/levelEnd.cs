@@ -13,7 +13,7 @@ public class levelEnd : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1;
-        endCanvas.gameObject.SetActive(false);
+        //endCanvas.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -26,7 +26,7 @@ public class levelEnd : MonoBehaviour
     {
         //wingame
         Time.timeScale = 0;
-        endCanvas.gameObject.SetActive(true);
+        //endCanvas.gameObject.SetActive(true);
         mouseMove.canMove = false;
         handMove.canMove = false;
 

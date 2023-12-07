@@ -38,18 +38,23 @@ public class obstacleBehavior : MonoBehaviour
             {
                 rb.transform.position = new Vector3(rb.transform.position.x, rb.transform.position.y + .1f, rb.transform.position.z);
             }
-            if (IsGrounded(groundCheck, groundCheckRadius, groundLayer))
+            else if (IsGrounded(groundCheck, groundCheckRadius, groundLayer))
             {
                 if (wasStatic)
                 {
                     rb.bodyType = RigidbodyType2D.Static;
                 }
             }
-            if (isAwake && doesNotFall)
+            else if (isAwake && doesNotFall)
             {
                 rb.bodyType = RigidbodyType2D.Static;
             }
         }
+    }
+
+    public bool CheckOnGround()
+    {
+        return IsGrounded(groundCheck, groundCheckRadius, groundLayer);
     }
 
     private bool IsGrounded(Transform t, float r, LayerMask l)
