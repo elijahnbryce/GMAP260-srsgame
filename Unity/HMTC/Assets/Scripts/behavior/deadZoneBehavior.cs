@@ -7,15 +7,16 @@ public class deadZoneBehavior : MonoBehaviour
 {
     public Canvas failCanvas;
 
-    private Vector3 handSpawn;
-    private Vector3 mouseSpawn;
-    [SerializeField] private Transform verticalBound;
+    public Vector3 handSpawn;
+    public Vector3 mouseSpawn;
+    public int showLives;
+
     [SerializeField] private GameObject mousePlayer;
     [SerializeField] private GameObject handPlayer;
-    //public GameObject respawnPoint;
+    public livesSystem livesS;
     private GameObject tempTarrg;
     private miceController mc;
-    private handController hc;
+    private handController hc; 
 
     private void Start()
     {
@@ -23,29 +24,15 @@ public class deadZoneBehavior : MonoBehaviour
         hc = handPlayer.GetComponent<handController>();
         mouseSpawn = mousePlayer.transform.position;
         handSpawn = handPlayer.transform.position;
+
+        livesS = GetComponent<livesSystem>();
     }
 
     private void Update()
     {
+        showLives = livesSystem.life;
     }
-/*
-    public void handleBounds(GameObject targ)
-    {
-        Debug.Log("Fell in the void");
-        if (targ.tag == "Player")
-        {
-            if (livesSystem.life == 0)
-            {
-                FailLevel();
-            }
-        }
-        if (targ.tag == "Obstacle")
-        {
-            tempTarrg = targ.gameObject;
-            tempTarrg.transform.position = tempTarrg.GetComponent<obstacleBehavior>().spawnPoint;
-        }
-    }
-*/
+
     private void FailLevel()
     {
         Time.timeScale = 0;
@@ -54,38 +41,35 @@ public class deadZoneBehavior : MonoBehaviour
         failCanvas.gameObject.SetActive(true);
         //Destroy(targ);
         Cursor.visible = true;
-    }
-
-   private void TakeDamage(int damage)
-    {
-        if (livesSystem.life > 0)
-        {
-            livesSystem.life -= 1;
-        }
+        Debug.Log("Level failed");
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
         tempTarrg = collider.gameObject;
-        Debug.Log("Fell in the void");
+        Debug.Log(collider.gameObject.layer + "Fell in the void");
 
         if (collider.tag == "Player")
         {
+            Debug.Log("player in void -- with " + livesSystem.life + " lives");
             if (livesSystem.life == 0)
             {
                 FailLevel();
             }
-            else if (livesSystem.life < 0)
+            else // (livesSystem.life < 0)
             {
+                //Debug.Log("Did not fail");
                 if (tempTarrg.name == "mousePlayer")
                 {
+                    Debug.Log("respawn mouse");
                     tempTarrg.transform.position = mouseSpawn;
                 }
                 else if (tempTarrg.name == "handPlayer")
                 {
+                    Debug.Log("respawn hand");
                     tempTarrg.transform.position = handSpawn;
                 }
-                TakeDamage(1);
+                livesS.TakeDamage(1);
             }
 
             //Destroy(co.gameObject);
@@ -93,11 +77,11 @@ public class deadZoneBehavior : MonoBehaviour
 
         }
 
-        if (collider.tag == "Obstacle")
+        if (collider.gameObject.layer == 8)
         {
             tempTarrg.transform.position = tempTarrg.GetComponent<obstacleBehavior>().spawnPoint;
         }
 
     }
- 
+
 }

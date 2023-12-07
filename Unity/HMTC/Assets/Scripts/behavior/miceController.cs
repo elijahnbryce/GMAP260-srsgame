@@ -34,7 +34,7 @@ public class miceController : MonoBehaviour
         }
 
         //VerticalDeath
-        checkVert();
+        //checkVert();
     }
 
     private void MoveCheck()
