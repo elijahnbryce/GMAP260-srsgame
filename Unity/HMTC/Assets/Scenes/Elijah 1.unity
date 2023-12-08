@@ -1937,8 +1937,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2242411543608186865, guid: 3dc797c1be5ec0141bf072b023b0b642, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5623311235796441097}
   m_SourcePrefab: {fileID: 100100000, guid: 3dc797c1be5ec0141bf072b023b0b642, type: 3}
+--- !u!1 &5623311235796441096 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2242411543608186865, guid: 3dc797c1be5ec0141bf072b023b0b642, type: 3}
+  m_PrefabInstance: {fileID: 5623311235796441095}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5623311235796441097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5623311235796441096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a90aa1ed779829848974412fc128a196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneToTransitionTo: Win Screen
 --- !u!1001 &6004311958917036157
 PrefabInstance:
   m_ObjectHideFlags: 0
