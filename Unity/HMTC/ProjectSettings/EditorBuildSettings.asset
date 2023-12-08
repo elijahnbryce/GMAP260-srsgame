@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HowTO.unity
     guid: cee8b8342d7e6cf48af8d67b320b03fd
+  - enabled: 1
+    path: Assets/Scenes/Andy level1 scene.unity
+    guid: a1737591016216149859a71c614b4afe
   m_configObjects: {}
