@@ -8,12 +8,13 @@ public class livesSystem : MonoBehaviour
 {
     public GameObject[] lives;
     public static int life = 3;
+    private EventHandler eV;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        eV = GetComponent<EventHandler>();
     }
 
     // Update is called once per frame
@@ -41,8 +42,15 @@ public class livesSystem : MonoBehaviour
 
         if (life == 0)
         {
-            SceneManager.LoadScene(2);
-            
+            if (eV != null)
+            {
+                eV.StartMenu();
+            }
+            else
+            {
+                SceneManager.LoadScene(2);
+
+            }
         }
     }
 
