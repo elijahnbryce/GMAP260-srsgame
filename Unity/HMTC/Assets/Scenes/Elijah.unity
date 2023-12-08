@@ -1790,7 +1790,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6309291545714428168, guid: e8776f6d8c615134fa8e5d9b4302a32a, type: 3}
       propertyPath: timerDisplay
-      value: 999
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 8380322250212745149, guid: e8776f6d8c615134fa8e5d9b4302a32a, type: 3}
       propertyPath: m_Camera
