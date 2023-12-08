@@ -91,9 +91,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2b4cddb6657934299b0ccce03c0069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endCanvas: {fileID: 0}
-  mouseMove: {fileID: 0}
-  handMove: {fileID: 0}
+  eV: {fileID: 7593057825165535210, guid: 237dfd1e4c1f8ef488d539cc68dd5661, type: 3}
+  mouseMove: {fileID: 6609188653581964193, guid: a6a6235f866d24741a01617a657867bc, type: 3}
+  handMove: {fileID: 6371602479305585562, guid: 4db10337f32926b4db305d0c8e9e997f, type: 3}
 --- !u!1 &3697601255312594766
 GameObject:
   m_ObjectHideFlags: 0

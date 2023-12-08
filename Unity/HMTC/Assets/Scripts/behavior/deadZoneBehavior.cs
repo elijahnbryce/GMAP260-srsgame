@@ -38,7 +38,7 @@ public class deadZoneBehavior : MonoBehaviour
         Time.timeScale = 0;
         mc.canMove = false;
         hc.canMove = false;
-        failCanvas.gameObject.SetActive(true);
+        //failCanvas.gameObject.SetActive(true);
         //Destroy(targ);
         Cursor.visible = true;
         Debug.Log("Level failed");
@@ -51,6 +51,8 @@ public class deadZoneBehavior : MonoBehaviour
 
         if (collider.tag == "Player")
         {
+            tempTarrg.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+
             Debug.Log("player in void -- with " + livesSystem.life + " lives");
             if (livesSystem.life == 0)
             {
@@ -81,6 +83,8 @@ public class deadZoneBehavior : MonoBehaviour
         {
             if (collider.gameObject.GetComponent<obstacleBehavior>().CheckOnGround() == false)
             {
+                tempTarrg.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
+                tempTarrg.transform.rotation = tempTarrg.GetComponent<obstacleBehavior>().spawnRot;
                 tempTarrg.transform.position = tempTarrg.GetComponent<obstacleBehavior>().spawnPoint;
             }
         }

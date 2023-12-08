@@ -20,10 +20,12 @@ public class handController : MonoBehaviour
 
     public obstacleBehavior obby;
     public Animator anim;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         targetLayer = LayerMask.NameToLayer("obstacles");
+        gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
     void Update()
@@ -82,6 +84,7 @@ public class handController : MonoBehaviour
             grabbedObject = collision.gameObject;
             obby.isAwake = false;
 
+            gameObject.layer = LayerMask.NameToLayer("hand");
             grabbedObject.GetComponent<Rigidbody2D>().isKinematic = true;
             grabbedObject.transform.position = grabPoint.position;
             grabbedObject.transform.SetParent(transform);
@@ -91,6 +94,7 @@ public class handController : MonoBehaviour
             Debug.Log("the hand has released its claim");
             anim.SetBool("Grabbing", false);
 
+            gameObject.layer = LayerMask.NameToLayer("Default");
             grabbedObject.GetComponent<Rigidbody2D>().isKinematic = false;
             grabbedObject.transform.SetParent(null);
 

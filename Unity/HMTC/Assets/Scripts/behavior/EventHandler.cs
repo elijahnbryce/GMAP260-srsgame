@@ -1,18 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EventHandler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private int level = 1;
+
+    public void LoadNext()
     {
-        
+        SceneManager.LoadScene(level + 1);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartMenu()
     {
-        
+        SceneManager.LoadScene(0);
     }
+
+    public void QuitGame()
+    {
+        Debug.Log("QUIT");
+        Application.Quit();
+    }
+
 }

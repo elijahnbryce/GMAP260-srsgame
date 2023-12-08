@@ -7,6 +7,7 @@ public class miceController : MonoBehaviour
     [SerializeField] private Transform verticalBound;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask obbyLayer;
     [SerializeField] private float checkRadius = 0.2f;
     [SerializeField] public float speed = 5f;
     [SerializeField] public float jumpHeight = 5f;
@@ -18,12 +19,12 @@ public class miceController : MonoBehaviour
     private Rigidbody2D rb;
 
     [SerializeField] private Animator anim;
+    public AudioSource walkSound;
+    public AudioSource jumpSound;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        //anim = this.GetComponent<Animator>();
-        //anim.SetTrigger("Idle");
     }
 
     void Update()
@@ -32,9 +33,6 @@ public class miceController : MonoBehaviour
         {
             MoveCheck();
         }
-
-        //VerticalDeath
-        //checkVert();
     }
 
     private void MoveCheck()
@@ -46,19 +44,28 @@ public class miceController : MonoBehaviour
         if (horizontalMove != 0)
         {
             anim.SetBool("Moving", true);
-        }
+            if (walkSound.GetComponent<AudioSource>().isPlaying == false)
+            {
+                //walkSound.GetComponent<AudioSource>().Play();
+            }
+}
         else
         {
             anim.SetBool("Moving", false);
+            //walkSound.GetComponent<AudioSource>().Stop();
         }
         //LOOK DIRECTION
         FlipSprite();
 
         //JUMP
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        if (Input.GetButtonDown("Jump") && (IsGrounded() || OnObstacle()))
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpHeight);
             anim.SetTrigger("Jump");
+            if (walkSound.GetComponent<AudioSource>().isPlaying == false)
+            {
+                //jumpSound.GetComponent<AudioSource>().Play();
+            }
         }
 
         anim.SetBool("OnGround", IsGrounded());
@@ -67,6 +74,10 @@ public class miceController : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, checkRadius, groundLayer);
+    }
+    private bool OnObstacle()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, checkRadius, obbyLayer);
     }
 
     private void FlipSprite()

@@ -9,14 +9,16 @@ public class obstacleBehavior : MonoBehaviour
     //[SerializeField] GameObject theHand;
     //[SerializeField] Transform testPos;
     public Vector3 spawnPoint;
+    public Quaternion spawnRot;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckRadius = 0.2f;
     [SerializeField] private float clippingCheckRadius = 0.1f;
 
+    public Collider2D boxCollider;
     private Rigidbody2D rb;
     public bool isAwake;
-    private bool wasStatic;
+    public bool wasStatic;
     public bool doesNotFall;
     public bool superStatic;
 
@@ -28,27 +30,32 @@ public class obstacleBehavior : MonoBehaviour
         isAwake = true;
         wasStatic = (rb.bodyType == RigidbodyType2D.Static);
         spawnPoint = rb.transform.position;
+        spawnRot = rb.transform.rotation;
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     void Update()
     {
         if (isAwake)
         {
-            if(IsGrounded(groundCheck, clippingCheckRadius, groundLayer))
+            if (IsGrounded(groundCheck, clippingCheckRadius, groundLayer))
             {
-                rb.transform.position = new Vector3(rb.transform.position.x, rb.transform.position.y + .1f, rb.transform.position.z);
+                //rb.transform.position = new Vector3(rb.transform.position.x, rb.transform.position.y + .1f, rb.transform.position.z);
             }
-            else if (IsGrounded(groundCheck, groundCheckRadius, groundLayer))
+            if (IsGrounded(groundCheck, groundCheckRadius, groundLayer))
             {
                 if (wasStatic)
                 {
                     rb.bodyType = RigidbodyType2D.Static;
                 }
             }
-            else if (isAwake && doesNotFall)
+            if (isAwake && doesNotFall)
             {
                 rb.bodyType = RigidbodyType2D.Static;
             }
+        }
+        else if (!isAwake)
+        {
         }
     }
 

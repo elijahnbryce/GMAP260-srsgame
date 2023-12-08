@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5227666550937854885}
   - component: {fileID: 7593057825165535210}
   - component: {fileID: 754751570429525773}
+  - component: {fileID: 8021495335443565553}
   - component: {fileID: 4786562979047662811}
   m_Layer: 0
   m_Name: EventHandle
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba0686f5fba9a24db0869e238f8e6d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 1
 --- !u!114 &754751570429525773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,9 +61,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   failCanvas: {fileID: 0}
-  verticalBound: {fileID: 0}
+  handSpawn: {x: 0, y: 0, z: 0}
+  mouseSpawn: {x: 0, y: 0, z: 0}
+  showLives: 3
   mousePlayer: {fileID: 0}
   handPlayer: {fileID: 0}
+  livesS: {fileID: 0}
+--- !u!114 &8021495335443565553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225145080315339363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5daab90390de13845802a6a038f86c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lives:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!61 &4786562979047662811
 BoxCollider2D:
   m_ObjectHideFlags: 0

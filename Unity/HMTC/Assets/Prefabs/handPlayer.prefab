@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3666718216311522318}
   - component: {fileID: 978382687685799381}
   - component: {fileID: 8498254822395908364}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 515927127220464875}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GrabPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 6371602479305585562}
   - component: {fileID: 7783776754456173663}
   - component: {fileID: 4453100831241925460}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: handPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}

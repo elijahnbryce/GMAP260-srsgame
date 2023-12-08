@@ -12,12 +12,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Level1.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
+    path: Assets/Scenes/bashira's scene.unity
+    guid: 6cd31558f0fb8ad46b7455287a6c34ba
+  - enabled: 1
+    path: Assets/Scenes/Elijah.unity
+    guid: 97c15be2be8566141acab6c44594339b
+  - enabled: 1
+    path: Assets/Scenes/Elijah 1.unity
+    guid: cbbeb059db2273c4bad97da3cd5c2503
+  - enabled: 1
     path: Assets/Scenes/Game Over Screen.unity
     guid: 73953a65a122a3847bfdc412766199c2
   - enabled: 1
     path: Assets/Scenes/Credits.unity
     guid: b47a13738e399ff4a8878c9170bd1ba8
-  - enabled: 1
-    path: Assets/Scenes/bashira's scene.unity
-    guid: 6cd31558f0fb8ad46b7455287a6c34ba
   m_configObjects: {}

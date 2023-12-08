@@ -53,11 +53,16 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  obbyLayer:
+    serializedVersion: 2
+    m_Bits: 256
   checkRadius: 0.2
   speed: 5
   jumpHeight: 5
   canMove: 1
   anim: {fileID: 7209863866018173182}
+  walkSound: {fileID: 435060417491407667, guid: b1b14b2f61886d840a114051f0f4b32f, type: 3}
+  jumpSound: {fileID: 2107737725899876218, guid: e1c0eaae38bd79b44bebe3417b30000b, type: 3}
 --- !u!50 &7011736886951507354
 Rigidbody2D:
   serializedVersion: 4

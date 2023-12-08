@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class levelEnd : MonoBehaviour
 {
-    public Canvas endCanvas;
+    public EventHandler eV;
     public miceController mouseMove;
     public handController handMove;
 
@@ -14,12 +14,8 @@ public class levelEnd : MonoBehaviour
     {
         Time.timeScale = 1;
         //endCanvas.gameObject.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        mouseMove.canMove = true;
+        handMove.canMove = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -29,6 +25,7 @@ public class levelEnd : MonoBehaviour
         //endCanvas.gameObject.SetActive(true);
         mouseMove.canMove = false;
         handMove.canMove = false;
+        eV.LoadNext();
 
     }
 }
