@@ -5,11 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class EventHandler : MonoBehaviour
 {
-    [SerializeField] private int level = 1;
-
     public void LoadNext()
     {
-        SceneManager.LoadScene(level + 1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void StartMenu()
