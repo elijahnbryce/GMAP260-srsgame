@@ -9354,6 +9354,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2070950934972595244, guid: 4afd78d8553003249a295939b6ff0a07, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1388169201}
     - target: {fileID: 2648247088875507475, guid: 4afd78d8553003249a295939b6ff0a07, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -9527,6 +9531,10 @@ PrefabInstance:
       propertyPath: timerDisplay
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 8380322250212745149, guid: e8776f6d8c615134fa8e5d9b4302a32a, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1388169201}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
