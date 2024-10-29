@@ -10,6 +10,8 @@ public class obstacleBehavior : MonoBehaviour
     //[SerializeField] Transform testPos;
     public Vector3 spawnPoint;
     public Quaternion spawnRot;
+
+    private Transform spawnT;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckRadius = 0.2f;
@@ -32,30 +34,57 @@ public class obstacleBehavior : MonoBehaviour
         spawnPoint = rb.transform.position;
         spawnRot = rb.transform.rotation;
         boxCollider = GetComponent<BoxCollider2D>();
+
+        spawnT = transform;
     }
 
-    void Update()
+    public void SetGrabbed(Transform p, Transform l)
     {
-        if (isAwake)
+        Physics.IgnoreLayerCollision(gameObject.layer, Physics.AllLayers, true);
+        boxCollider.enabled = false;
+
+        rb.isKinematic = true;
+        transform.position = l.position;
+        transform.SetParent(p);
+    }
+
+    public void SetReleased()
+    {
+        Physics.IgnoreLayerCollision(gameObject.layer, Physics.AllLayers, false);
+        boxCollider.enabled = true;
+
+        if (doesNotFall) rb.bodyType = RigidbodyType2D.Static;
+        rb.isKinematic = false;
+
+        transform.SetParent(spawnT.parent);
+    }
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
+            // Push out of ground if clipping
+                // Bottom
             if (IsGrounded(groundCheck, clippingCheckRadius, groundLayer))
             {
-                //rb.transform.position = new Vector3(rb.transform.position.x, rb.transform.position.y + .1f, rb.transform.position.z);
+                rb.transform.position = new Vector3(rb.transform.position.x, rb.transform.position.y + 1f, rb.transform.position.z);
             }
-            if (IsGrounded(groundCheck, groundCheckRadius, groundLayer))
+                // Top
+            else if (
+                Physics2D.OverlapCircle(
+                    new Vector2( groundCheck.position.x, transform.position.y + (transform.position.y - groundCheck.position.y) ), 
+                    clippingCheckRadius, 
+                    groundLayer)
+                )
             {
-                if (wasStatic)
-                {
-                    rb.bodyType = RigidbodyType2D.Static;
-                }
+                rb.transform.position = new Vector3(rb.transform.position.x, rb.transform.position.y - 1f, rb.transform.position.z);
             }
-            if (isAwake && doesNotFall)
+            // Will fall but won't move
+            if (wasStatic)
             {
                 rb.bodyType = RigidbodyType2D.Static;
             }
-        }
-        else if (!isAwake)
-        {
         }
     }
 
