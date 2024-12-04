@@ -11,7 +11,7 @@ public class obstacleBehavior : MonoBehaviour
     public Vector3 spawnPoint;
     public Quaternion spawnRot;
 
-    private Transform spawnT;
+    private Transform spawnParent;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float groundCheckRadius = 0.2f;
@@ -24,23 +24,30 @@ public class obstacleBehavior : MonoBehaviour
     public bool doesNotFall;
     public bool superStatic;
 
+    // layers
+    private LayerMask ignoreLayers, noLayers;
+
     void Start()
     {
         //handControl = theHand.GetComponent<handController>();
+        ignoreLayers = (Physics2D.AllLayers & ~(1 << LayerMask.GetMask("Player")));
+        noLayers = ~(Physics2D.AllLayers);
 
         rb = GetComponent<Rigidbody2D>();
         isAwake = true;
         wasStatic = (rb.bodyType == RigidbodyType2D.Static);
+
+        spawnParent = transform.parent;
         spawnPoint = rb.transform.position;
         spawnRot = rb.transform.rotation;
-        boxCollider = GetComponent<BoxCollider2D>();
 
-        spawnT = transform;
+        boxCollider = GetComponent<BoxCollider2D>();
+        boxCollider.layerOverridePriority = 1;
     }
 
     public void SetGrabbed(Transform p, Transform l)
     {
-        Physics.IgnoreLayerCollision(gameObject.layer, Physics.AllLayers, true);
+        boxCollider.excludeLayers = ignoreLayers;
         boxCollider.enabled = false;
 
         rb.isKinematic = true;
@@ -50,13 +57,14 @@ public class obstacleBehavior : MonoBehaviour
 
     public void SetReleased()
     {
-        Physics.IgnoreLayerCollision(gameObject.layer, Physics.AllLayers, false);
+        //Physics2D.IgnoreLayerCollision(gameObject.layer, ignoreLayers, false);
+        boxCollider.excludeLayers = noLayers;
         boxCollider.enabled = true;
 
         if (doesNotFall) rb.bodyType = RigidbodyType2D.Static;
         rb.isKinematic = false;
 
-        transform.SetParent(spawnT.parent);
+        transform.SetParent(spawnParent);
     }
 
 

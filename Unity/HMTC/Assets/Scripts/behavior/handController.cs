@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class handController : MonoBehaviour
@@ -14,10 +15,12 @@ public class handController : MonoBehaviour
 
     [Header("Grab")]
     [SerializeField] private Transform grabPoint;
-    [SerializeField] private const float grabRange = 3f;
+    [SerializeField] private float grabRange = 3f;
+
     [SerializeField] private LayerMask targetLayer;
+    
     private GameObject grabbedObject;
-    private Collider2D myCollider, tempCollision;
+    private Collider2D[] hit = new Collider2D[7];
 
     public obstacleBehavior obby;
     public Animator anim;
@@ -25,9 +28,6 @@ public class handController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        myCollider = GetComponent<Collider2D>();
-        targetLayer = LayerMask.GetMask("obstacles");
-        gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
     void Update()
@@ -49,35 +49,35 @@ public class handController : MonoBehaviour
 
     private void GrabCheck()
     {
-        Debug.Log("stopped colliding");
-        if (Input.GetKey(KeyCode.Space) && grabbedObject == null)
+        if (Input.GetKeyDown(KeyCode.Space) && grabbedObject == null)
         {
-            Collider2D[] hit = Physics2D.OverlapCircleAll(rb.position, grabRange, targetLayer);
-            if (hit.Length > 0) { return; }
-
-            float dis = 0f;
-            tempCollision = null;
-
-            foreach (Collider2D c in hit)
+            int tagged = Physics2D.OverlapCircleNonAlloc(transform.position, grabRange, hit, targetLayer);
+            if (tagged > 0)
             {
-                float cd = Vector2.Distance(rb.position, c.transform.position);
-                if (cd < dis || tempCollision == null)
+                float dis = 0f;
+                Collider2D c, tempCollision = null;
+                for (int i = 0; i < tagged; i++)
                 {
-                    tempCollision = c;
-                    dis = cd;
+                    c = hit[i];
+                    float cd = Vector2.Distance(grabPoint.position, c.gameObject.transform.position);
+
+                    Debug.Log(c.name + ": " + cd + " <? " + dis);
+                    if (cd < dis || tempCollision == null)
+                    {
+                        tempCollision = c;
+                        dis = cd;
+                    }
                 }
+                PickupFixed(tempCollision);
+                //ArrayUtility.Clear(ref hit);
+                //System.Array.Clear(hit, 0, 7);
             }
-            PickupFixed(tempCollision);
-        }
-        else if (Input.GetKeyUp(KeyCode.Space) && grabbedObject != null)
-        {
-            ReleaseFixed();
         }
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(rb.position, grabRange);
+        Gizmos.DrawWireSphere(transform.position, grabRange);
     }
 
     private void PickupFixed(Collider2D collision)
@@ -87,9 +87,16 @@ public class handController : MonoBehaviour
 
         grabbedObject = collision.gameObject;
 
-        //gameObject.layer = LayerMask.NameToLayer("hand");
-        Physics2D.IgnoreCollision(collision, myCollider, true);
+        //Physics2D.IgnoreCollision(collision, myCollider, true);
         grabbedObject.GetComponent<obstacleBehavior>().SetGrabbed(transform, grabPoint);
+
+        StartCoroutine(WaitForRelease());
+    }
+
+    private IEnumerator WaitForRelease()
+    {
+        yield return new WaitWhile( ()=> Input.GetKey(KeyCode.Space) );
+        ReleaseFixed();
     }
 
     private void ReleaseFixed()
@@ -97,7 +104,7 @@ public class handController : MonoBehaviour
         Debug.Log("the hand has released its claim");
         anim.SetBool("Grabbing", false);
 
-        Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), myCollider, false);
+        //Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), myCollider, false);
         grabbedObject.GetComponent<obstacleBehavior>().SetReleased();
         grabbedObject = null;
     }
