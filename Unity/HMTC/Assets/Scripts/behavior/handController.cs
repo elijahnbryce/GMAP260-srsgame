@@ -7,7 +7,7 @@ public class handController : MonoBehaviour
 {
     [Header("Movement")]
     [SerializeField] public float speed = 5f;
-    private float horizontalMove = 0f, verticalMove = 0f;
+    private float horizontalMove, verticalMove;
     public bool canMove = true;
 
     private Rigidbody2D rb;
@@ -15,12 +15,12 @@ public class handController : MonoBehaviour
 
     [Header("Grab")]
     [SerializeField] private Transform grabPoint;
-    [SerializeField] private float grabRange = 3f;
+    [SerializeField] private float grabRange = .64f;
 
     [SerializeField] private LayerMask targetLayer;
     
     private GameObject grabbedObject;
-    private Collider2D[] hit = new Collider2D[7];
+    private Collider2D[] hit = new Collider2D[7]; // arbitrary
 
     public obstacleBehavior obby;
     public Animator anim;
@@ -60,8 +60,6 @@ public class handController : MonoBehaviour
                 {
                     c = hit[i];
                     float cd = Vector2.Distance(grabPoint.position, c.gameObject.transform.position);
-
-                    Debug.Log(c.name + ": " + cd + " <? " + dis);
                     if (cd < dis || tempCollision == null)
                     {
                         tempCollision = c;
@@ -69,8 +67,7 @@ public class handController : MonoBehaviour
                     }
                 }
                 PickupFixed(tempCollision);
-                //ArrayUtility.Clear(ref hit);
-                //System.Array.Clear(hit, 0, 7);
+                //System.Array.Clear(hit, 0, 7); don't need... for now
             }
         }
     }

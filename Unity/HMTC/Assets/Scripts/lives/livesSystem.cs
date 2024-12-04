@@ -17,29 +17,10 @@ public class livesSystem : MonoBehaviour
         eV = GetComponent<EventHandler>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        if (life < 1)
-        {
-            Destroy(lives[0].gameObject);
-
-        }else if (life <2)
-        {
-            Destroy(lives[1].gameObject);
-        }
-        else if (life < 3)
-        {
-            Destroy(lives[2].gameObject);
-        }
-        
-    }
-
     public void TakeDamage(int damage)
     {
         life -= damage;
-
+        Destroy(lives[life].gameObject);
         if (life == 0)
         {
             if (eV != null)
@@ -49,28 +30,7 @@ public class livesSystem : MonoBehaviour
             else
             {
                 SceneManager.LoadScene(2);
-
             }
         }
     }
-
-
-        void OnTriggerEnter2D(Collider2D co)
-    {
-        //Debug.Log("here");
-        if (co.name == "deadZone"){
-
-            TakeDamage(1);
-
-            //Destroy(co.gameObject);
-            //SceneManager.LoadScene(2);
-
-        }
-
-
-    }
-
-
-
-
 }

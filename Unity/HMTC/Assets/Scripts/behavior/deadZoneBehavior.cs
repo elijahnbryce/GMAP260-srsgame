@@ -16,7 +16,10 @@ public class deadZoneBehavior : MonoBehaviour
     public livesSystem livesS;
     private GameObject tempTarrg;
     private miceController mc;
-    private handController hc; 
+    private handController hc;
+
+    [SerializeField] private Transform boundX, boundY;
+    private Vector2 bounds;
 
     private void Start()
     {
@@ -26,6 +29,8 @@ public class deadZoneBehavior : MonoBehaviour
         handSpawn = handPlayer.transform.position;
 
         livesS = GetComponent<livesSystem>();
+
+        bounds = new Vector2 (Mathf.Abs(boundX.position.x), Mathf.Abs(boundY.position.y));
     }
 
     private void Update()
@@ -46,8 +51,10 @@ public class deadZoneBehavior : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collider)
     {
+        if (!BeyondBounds(collider.transform)) return;
+
         tempTarrg = collider.gameObject;
-        Debug.Log(collider.gameObject.layer + "Fell in the void");
+        Debug.Log(collider.gameObject.name + "Fell in the void");
 
         if (collider.tag == "Player")
         {
@@ -58,9 +65,8 @@ public class deadZoneBehavior : MonoBehaviour
             {
                 FailLevel();
             }
-            else // (livesSystem.life < 0)
+            else
             {
-                //Debug.Log("Did not fail");
                 if (tempTarrg.name == "mousePlayer")
                 {
                     Debug.Log("respawn mouse");
@@ -73,10 +79,6 @@ public class deadZoneBehavior : MonoBehaviour
                 }
                 livesS.TakeDamage(1);
             }
-
-            //Destroy(co.gameObject);
-            //SceneManager.LoadScene(2);
-
         }
 
         if (collider.gameObject.layer == 8)
@@ -90,5 +92,8 @@ public class deadZoneBehavior : MonoBehaviour
         }
 
     }
-
+    private bool BeyondBounds(Transform t)
+    {
+        return (Mathf.Abs(t.position.x) > bounds.x || Mathf.Abs(t.position.y) > bounds.y);
+    }
 }
