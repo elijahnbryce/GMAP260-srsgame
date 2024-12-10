@@ -23,6 +23,7 @@ public class deadZoneBehavior : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1;
         mc = mousePlayer.GetComponent<miceController>();
         hc = handPlayer.GetComponent<handController>();
         mouseSpawn = mousePlayer.transform.position;
@@ -31,6 +32,8 @@ public class deadZoneBehavior : MonoBehaviour
         livesS = GetComponent<livesSystem>();
 
         bounds = new Vector2 (Mathf.Abs(boundX.position.x), Mathf.Abs(boundY.position.y));
+        mc.canMove = true;
+        hc.canMove = true;
     }
 
     private void Update()
@@ -41,8 +44,6 @@ public class deadZoneBehavior : MonoBehaviour
     private void FailLevel()
     {
         Time.timeScale = 0;
-        mc.canMove = false;
-        hc.canMove = false;
         //failCanvas.gameObject.SetActive(true);
         //Destroy(targ);
         Cursor.visible = true;

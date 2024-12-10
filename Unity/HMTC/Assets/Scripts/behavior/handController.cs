@@ -24,14 +24,17 @@ public class handController : MonoBehaviour
 
     public obstacleBehavior obby;
     public Animator anim;
+    private int grabBool = Animator.StringToHash("Grabbing");
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        Debug.Log(canMove);
     }
 
     void Update()
     {
+        Debug.Log(canMove);
         if (canMove)
         {
             MoveCheck();
@@ -80,7 +83,7 @@ public class handController : MonoBehaviour
     private void PickupFixed(Collider2D collision)
     {
         Debug.Log("the hand is picking it up");
-        anim.SetBool("Grabbing", true);
+        anim.SetBool(grabBool, true);
 
         grabbedObject = collision.gameObject;
 
@@ -99,7 +102,7 @@ public class handController : MonoBehaviour
     private void ReleaseFixed()
     {
         Debug.Log("the hand has released its claim");
-        anim.SetBool("Grabbing", false);
+        anim.SetBool(grabBool, false);
 
         //Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), myCollider, false);
         grabbedObject.GetComponent<obstacleBehavior>().SetReleased();

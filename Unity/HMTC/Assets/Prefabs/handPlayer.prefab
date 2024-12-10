@@ -188,6 +188,10 @@ MonoBehaviour:
   speed: 5
   canMove: 1
   grabPoint: {fileID: 515927127220464875}
+  grabRange: 0.69
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 256
   obby: {fileID: 0}
   anim: {fileID: 8498254822395908364}
 --- !u!50 &7783776754456173663

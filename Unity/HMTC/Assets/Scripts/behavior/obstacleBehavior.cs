@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class obstacleBehavior : MonoBehaviour
 {
-    Vector3 grabOffset;
-    //bool isHeld = false;
-    //[SerializeField] GameObject theHand;
-    //[SerializeField] Transform testPos;
     public Vector3 spawnPoint;
     public Quaternion spawnRot;
 
@@ -29,7 +25,6 @@ public class obstacleBehavior : MonoBehaviour
 
     void Start()
     {
-        //handControl = theHand.GetComponent<handController>();
         ignoreLayers = (Physics2D.AllLayers & ~(1 << LayerMask.GetMask("Player")));
         noLayers = ~(Physics2D.AllLayers);
 
@@ -43,12 +38,13 @@ public class obstacleBehavior : MonoBehaviour
 
         boxCollider = GetComponent<BoxCollider2D>();
         boxCollider.layerOverridePriority = 1;
+        boxCollider.excludeLayers = noLayers;
     }
 
     public void SetGrabbed(Transform p, Transform l)
     {
         boxCollider.excludeLayers = ignoreLayers;
-        boxCollider.enabled = false;
+        ///boxCollider.enabled = false;
 
         rb.isKinematic = true;
         transform.position = l.position;
@@ -59,7 +55,7 @@ public class obstacleBehavior : MonoBehaviour
     {
         //Physics2D.IgnoreLayerCollision(gameObject.layer, ignoreLayers, false);
         boxCollider.excludeLayers = noLayers;
-        boxCollider.enabled = true;
+        //boxCollider.enabled = true;
 
         if (doesNotFall) rb.bodyType = RigidbodyType2D.Static;
         rb.isKinematic = false;

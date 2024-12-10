@@ -18,6 +18,7 @@ public class miceController : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    [SerializeField] private Transform sprite;
     [SerializeField] private Animator anim;
     public AudioSource walkSound;
     public AudioSource jumpSound;
@@ -25,6 +26,7 @@ public class miceController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sprite = transform.GetChild(0);
     }
 
     void Update()
@@ -85,9 +87,9 @@ public class miceController : MonoBehaviour
         if (facingRight && horizontalMove < 0f || !facingRight && horizontalMove > 0f)
         {
             facingRight = !facingRight;
-            Vector3 localScale = transform.localScale;
+            Vector3 localScale = sprite.localScale;
             localScale.x *= -1f;
-            transform.localScale = localScale;
+            sprite.localScale = localScale;
         }
     }
 
